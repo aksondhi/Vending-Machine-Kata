@@ -19,3 +19,9 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(nickel.getWeight(), 5.0)
         self.assertEqual(nickel.getDiameter(), 0.835)
         self.assertEqual(nickel.getValue(), 0.05)
+
+        dime = Coin(2.268, 0.705)  # A dime
+        self.assertEqual(dime.isValid(), True)
+        self.assertEqual(dime.getWeight(), 2.268)
+        self.assertEqual(dime.getDiameter(), 0.705)
+        self.assertEqual(dime.getValue(), 0.1)

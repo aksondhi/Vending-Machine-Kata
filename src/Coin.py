@@ -7,7 +7,12 @@ class Coin:
         self.diameter = diameter
 
     def isValid(self):
-        return self.weight == 5.0 and self.diameter == 0.835
+        if self.weight == 5.0 and self.diameter == 0.835:
+            return True
+        elif self.weight == 2.268 and self.diameter == 0.705:
+            return True
+
+        return False
 
     def getWeight(self):
         return self.weight
@@ -16,4 +21,7 @@ class Coin:
         return self.diameter
 
     def getValue(self):
-        return 0.05
+        if self.weight == 5.0 and self.diameter == 0.835:
+            return 0.05
+        elif self.weight == 2.268 and self.diameter == 0.705:
+            return 0.10

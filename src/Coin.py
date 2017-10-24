@@ -1,5 +1,14 @@
 __author__ = "Arun Sondhi"
 
+from enum import Enum
+class Coins(Enum):
+    NICKEL_WEIGHT = 5.0
+    NICKEL_DIAMETER = 0.835
+    NICKEL_VALUE = 0.05
+
+    DIME_WEIGHT = 2.268
+    DIME_DIAMETER = 0.705
+    DIME_VALUE = 0.1
 
 class Coin:
     def __init__(self, weight, diameter):
@@ -7,9 +16,9 @@ class Coin:
         self.diameter = diameter
 
     def isValid(self):
-        if self.weight == 5.0 and self.diameter == 0.835:
+        if self.__isNickel():
             return True
-        elif self.weight == 2.268 and self.diameter == 0.705:
+        elif self.__isDime():
             return True
 
         return False
@@ -21,7 +30,13 @@ class Coin:
         return self.diameter
 
     def getValue(self):
-        if self.weight == 5.0 and self.diameter == 0.835:
-            return 0.05
-        elif self.weight == 2.268 and self.diameter == 0.705:
-            return 0.10
+        if self.__isNickel():
+            return Coins.NICKEL_VALUE
+        elif self.__isDime():
+            return Coins.DIME_VALUE
+
+    def __isNickel(self):
+        return self.weight == Coins.NICKEL_WEIGHT and self.diameter == Coins.NICKEL_DIAMETER
+
+    def __isDime(self):
+        return self.weight == Coins.DIME_WEIGHT and self.diameter == Coins.DIME_DIAMETER

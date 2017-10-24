@@ -25,3 +25,9 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(dime.getWeight(), 2.268)
         self.assertEqual(dime.getDiameter(), 0.705)
         self.assertEqual(dime.getValue(), 0.1)
+
+        quarter = Coin(5.670, 0.955)  # A quarter
+        self.assertEqual(quarter.isValid(), True)
+        self.assertEqual(quarter.getWeight(), 5.670)
+        self.assertEqual(quarter.getDiameter(), 0.955)
+        self.assertEqual(quarter.getValue(), 0.25)

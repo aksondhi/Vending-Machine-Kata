@@ -43,3 +43,15 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(len(vendingMachine.getCoinReturn()), 0)
         self.assertEqual(coinReturn[0].getWeight(), 2.5)
         self.assertEqual(coinReturn[0].getDiameter(), 0.75)
+
+    def testWhenValidWeightAndDiametersArePassedToVendingMachineTheyAreStoredAndAddedToTotalCorrectly(self):
+        vendingMachine = VendingMachine()
+        successful = vendingMachine.insert(5.0, 0.835)
+
+        self.assertTrue(successful)
+        inserted = vendingMachine.getInserted()
+        self.assertEqual(len(inserted), 1)
+        self.assertEqual(inserted[0].getWeight(), 5.0)
+        self.assertEqual(inserted[0].getDiameter(), 0.835)
+        self.assertEqual(inserted[0].getValue(), 0.05)
+        self.assertEqual(vendingMachine.getTotal(), 0.05)

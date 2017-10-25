@@ -6,13 +6,24 @@ from Coin import Coin
 class VendingMachine:
     def __init__(self):
         self.coinReturn = []
+        self.inserted = []
 
     def insert(self, weight, diameter):
         aCoin = Coin(weight, diameter)
-        self.coinReturn.append(aCoin)
-        return False
+        if aCoin.isValid():
+            self.inserted.append(aCoin)
+        else:
+            self.coinReturn.append(aCoin)
+
+        return aCoin.isValid()
 
     def getCoinReturn(self):
         toReturn = self.coinReturn
         self.coinReturn = []
         return toReturn
+
+    def getInserted(self):
+        return self.inserted
+
+    def getTotal(self):
+        return 0.05

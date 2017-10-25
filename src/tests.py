@@ -55,3 +55,14 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(inserted[0].getDiameter(), 0.835)
         self.assertEqual(inserted[0].getValue(), 0.05)
         self.assertEqual(vendingMachine.getTotal(), 0.05)
+
+        vendingMachine = VendingMachine()
+        successful = vendingMachine.insert(2.268, 0.705)
+
+        self.assertTrue(successful)
+        inserted = vendingMachine.getInserted()
+        self.assertEqual(len(inserted), 1)
+        self.assertEqual(inserted[0].getWeight(), 2.268)
+        self.assertEqual(inserted[0].getDiameter(), 0.705)
+        self.assertEqual(inserted[0].getValue(), 0.1)
+        self.assertEqual(vendingMachine.getTotal(), 0.1)

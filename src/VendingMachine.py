@@ -26,4 +26,4 @@ class VendingMachine:
         return self.inserted
 
     def getTotal(self):
-        return 0.05
+        return sum([coin.getValue() for coin in self.inserted])

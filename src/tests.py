@@ -2,6 +2,7 @@ __author__ = "Arun Sondhi"
 
 import unittest
 from Coin import Coin
+from VendingMachine import VendingMachine
 
 
 class CoinTests(unittest.TestCase):
@@ -31,3 +32,14 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(quarter.getWeight(), 5.670)
         self.assertEqual(quarter.getDiameter(), 0.955)
         self.assertEqual(quarter.getValue(), 0.25)
+
+    def testWhenPenniesArePassedToVendingMachineTheyArePlacedInCoinReturn(self):
+        vendingMachine = VendingMachine()
+        successful = vendingMachine.insert(2.5, 0.75)
+
+        self.assertEqual(successful, False)
+        coinReturn = vendingMachine.getCoinReturn()
+        self.assertEqual(len(coinReturn), 1)
+        self.assertEqual(len(vendingMachine.getCoinReturn()), 0)
+        self.assertEqual(coinReturn[0].getWeight(), 2.5)
+        self.assertEqual(coinReturn[0].getDiameter(), 0.75)

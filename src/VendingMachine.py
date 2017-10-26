@@ -1,6 +1,7 @@
 __author__ = "Arun Sondhi"
 
 from Coin import Coin
+from Coin import Coins
 
 
 class VendingMachine:
@@ -48,21 +49,21 @@ class VendingMachine:
                 self.display = "PRICE 1.00"
             else:
                 self.display = "THANK YOU"
-                self.inserted = []
+                self.__makeChange(1.00)
                 self.cola -= 1
         elif index == 1:
             if self.getTotal() < 0.50:
                 self.display = "PRICE 0.50"
             else:
                 self.display = "THANK YOU"
-                self.inserted = []
+                self.__makeChange(0.50)
                 self.chips -= 1
         elif index == 2:
             if self.getTotal() < 0.65:
                 self.display = "PRICE 0.65"
             else:
                 self.display = "THANK YOU"
-                self.inserted = []
+                self.__makeChange(0.65)
                 self.candy -= 1
 
     def getQuantity(self, index):
@@ -72,3 +73,25 @@ class VendingMachine:
             return self.chips
         elif index == 2:
             return self.candy
+
+    def __makeChange(self, value):
+        excess = self.getTotal() - value
+        self.inserted = []
+
+        quarters = int(excess / Coins.QUARTER_VALUE)
+        if quarters > 0:
+            excess = excess - (Coins.QUARTER_VALUE * quarters)
+            for i in range(quarters):
+                self.coinReturn.append(Coin(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER))
+
+        dimes = int(excess / Coins.DIME_VALUE)
+        if dimes > 0:
+            excess = excess - (Coins.DIME_VALUE * dimes)
+            for i in range(dimes):
+                self.coinReturn.append(Coin(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER))
+
+        nickels = int(excess / Coins.NICKEL_VALUE)
+        if dimes > 0:
+            excess = excess - (Coins.NICKEL_VALUE * nickels)
+            for i in range(nickels):
+                self.coinReturn.append(Coin(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER))

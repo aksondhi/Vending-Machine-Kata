@@ -177,3 +177,38 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
         self.assertEqual(vendingMachine.getQuantity(2), 2)
+
+    def testWhenAProductIsPurchasedWithExcessFundsCorrectChangeIsReturned(self):
+        vendingMachine = VendingMachine(cola=3)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.select(0)
+        coinReturn = vendingMachine.getCoinReturn()
+
+        self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), Coins.QUARTER_VALUE)
+
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
+        vendingMachine.select(0)
+        coinReturn = vendingMachine.getCoinReturn()
+
+        self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), 0.35)
+
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
+        vendingMachine.select(0)
+        coinReturn = vendingMachine.getCoinReturn()
+
+        self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), 0.4)

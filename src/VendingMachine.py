@@ -5,13 +5,16 @@ from Coin import Coins
 
 
 class VendingMachine:
-    def __init__(self, cola=0, chips=0, candy=0):
+    def __init__(self, cola=0, chips=0, candy=0, quarters=0, dimes=1, nickels=1):
         self.coinReturn = []
         self.inserted = []
         self.display = "INSERT COIN"
         self.cola = cola
         self.chips = chips
         self.candy = candy
+        self.quarters = quarters
+        self.dimes = dimes
+        self.nickels = nickels
 
     def insert(self, weight, diameter):
         aCoin = Coin(weight, diameter)
@@ -37,9 +40,12 @@ class VendingMachine:
         toDisplay = None
         if "PRICE" in self.display or "THANK YOU" in self.display or "SOLD OUT" in self.display:
             toDisplay = self.display
-
-        self.display = self.display = "{0:.2f}".format(self.getTotal()) if len(
-            self.getInserted()) > 0 else "INSERT COIN"
+        if len(self.getInserted()) > 0:
+            self.display = self.display = "{0:.2f}".format(self.getTotal())
+        elif self.dimes < 1 or self.nickels < 1:
+            self.display = "EXACT CHANGE ONLY"
+        else:
+            self.display = "INSERT COIN"
 
         return toDisplay if toDisplay is not None else self.display
 

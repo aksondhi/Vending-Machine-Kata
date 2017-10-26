@@ -247,3 +247,12 @@ class CoinTests(unittest.TestCase):
         vendingMachine.select(0)
         self.assertEqual(vendingMachine.getDisplay(), "SOLD OUT")
         self.assertEqual(vendingMachine.getDisplay(), "0.25")
+
+    def testWhenThereIsNotEnoughMoneyInTheVendingMachineExactChangeOnlyShouldBeDisplayed(self):
+        vendingMachine = VendingMachine(quarters=0, nickels=0, dimes=0)
+
+        self.assertEqual(vendingMachine.getDisplay(), "EXACT CHANGE ONLY")
+
+        vendingMachine = VendingMachine(quarters=0, nickels=1, dimes=1)
+
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")

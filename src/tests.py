@@ -102,3 +102,20 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.getDisplay(), "0.15")
         vendingMachine.insert(5.670, 0.955)
         self.assertEqual(vendingMachine.getDisplay(), "0.40")
+
+    def testWhenAnyProductIsSelectedAndNoCoinsAreInsertedDisplayReturnsValueOfItemOnce(self):
+        vendingMachine = VendingMachine()
+        vendingMachine.select(0)  # Selecting cola
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 1.00")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+        vendingMachine.select(1)  # Selecting chips
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.50")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+        vendingMachine.select(2)  # Selecting candy
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")

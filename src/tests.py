@@ -89,6 +89,6 @@ class CoinTests(unittest.TestCase):
 
     def testWhenInvalidCoinsArePassedToVendingMachineDisplaysInsertCoin(self):
         vendingMachine = VendingMachine()
-        successful = vendingMachine.insert(2.5, 0.75)
+        vendingMachine.insert(2.5, 0.75)
 
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")

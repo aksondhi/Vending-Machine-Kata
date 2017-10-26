@@ -119,3 +119,24 @@ class CoinTests(unittest.TestCase):
 
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+    def testWhenAnyProductIsSelectedAndInsufficientFundsAreAvailableDisplayReturnsValueOfItemOnceThenAvailableFunds(self):
+        vendingMachine = VendingMachine()
+        vendingMachine.insert(5.0, 0.835)
+
+        vendingMachine.select(0)  # Selecting cola
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 1.00")
+        self.assertEqual(vendingMachine.getDisplay(), "0.05")
+
+        vendingMachine.insert(2.268, 0.705)
+        vendingMachine.select(1)  # Selecting chips
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.50")
+        self.assertEqual(vendingMachine.getDisplay(), "0.15")
+
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.select(2)  # Selecting candy
+
+        self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
+        self.assertEqual(vendingMachine.getDisplay(), "0.40")

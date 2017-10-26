@@ -120,7 +120,8 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
 
-    def testWhenAnyProductIsSelectedAndInsufficientFundsAreAvailableDisplayReturnsValueOfItemOnceThenAvailableFunds(self):
+    def testWhenAnyProductIsSelectedAndInsufficientFundsAreAvailableDisplayReturnsValueOfItemOnceThenAvailableFunds(
+            self):
         vendingMachine = VendingMachine()
         vendingMachine.insert(5.0, 0.835)
 
@@ -140,3 +141,38 @@ class CoinTests(unittest.TestCase):
 
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
         self.assertEqual(vendingMachine.getDisplay(), "0.40")
+
+    def testWhenAProductIsSelectedAndSufficientFundsAreAvailableDisplayReturnsThankYou(self):
+        vendingMachine = VendingMachine(cola=5, chips=4, candy=3)
+
+        self.assertEqual(vendingMachine.getQuantity(0), 5)
+
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.select(0)
+
+        self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+        self.assertEqual(vendingMachine.getQuantity(0), 4)
+        self.assertEqual(vendingMachine.getQuantity(1), 4)
+
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.select(1)
+
+        self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+        self.assertEqual(vendingMachine.getQuantity(1), 3)
+        self.assertEqual(vendingMachine.getQuantity(2), 3)
+
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(2.268, 0.705)
+        vendingMachine.insert(5.0, 0.835)
+        vendingMachine.select(2)
+
+        self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+        self.assertEqual(vendingMachine.getQuantity(2), 2)

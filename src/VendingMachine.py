@@ -35,7 +35,7 @@ class VendingMachine:
 
     def getDisplay(self):
         toDisplay = None
-        if "PRICE" in self.display or "THANK YOU" in self.display:
+        if "PRICE" in self.display or "THANK YOU" in self.display or "SOLD OUT" in self.display:
             toDisplay = self.display
 
         self.display = self.display = "{0:.2f}".format(self.getTotal()) if len(
@@ -45,21 +45,27 @@ class VendingMachine:
 
     def select(self, index):
         if index == 0:
-            if self.getTotal() < 1.00:
+            if self.cola == 0:
+                self.display = "SOLD OUT"
+            elif self.getTotal() < 1.00:
                 self.display = "PRICE 1.00"
             else:
                 self.display = "THANK YOU"
                 self.__makeChange(1.00)
                 self.cola -= 1
         elif index == 1:
-            if self.getTotal() < 0.50:
+            if self.chips == 0:
+                self.display = "SOLD OUT"
+            elif self.getTotal() < 0.50:
                 self.display = "PRICE 0.50"
             else:
                 self.display = "THANK YOU"
                 self.__makeChange(0.50)
                 self.chips -= 1
         elif index == 2:
-            if self.getTotal() < 0.65:
+            if self.candy == 0:
+                self.display = "SOLD OUT"
+            elif self.getTotal() < 0.65:
                 self.display = "PRICE 0.65"
             else:
                 self.display = "THANK YOU"

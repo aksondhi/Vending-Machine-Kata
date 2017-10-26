@@ -224,3 +224,26 @@ class CoinTests(unittest.TestCase):
 
         self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), 0.4)
         self.assertEqual(len(coinReturn), 4)
+
+    def testWhenCoinsAreAndAreNotInsertedAndSoldOutProductIsSelectedSoldOutIsDisplayed(self):
+        vendingMachine = VendingMachine()
+        vendingMachine.select(0)
+
+        self.assertEqual(vendingMachine.getDisplay(), "SOLD OUT")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+        vendingMachine.select(1)
+
+        self.assertEqual(vendingMachine.getDisplay(), "SOLD OUT")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+        vendingMachine.select(2)
+
+        self.assertEqual(vendingMachine.getDisplay(), "SOLD OUT")
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+
+        vendingMachine.select(0)
+        self.assertEqual(vendingMachine.getDisplay(), "SOLD OUT")
+        self.assertEqual(vendingMachine.getDisplay(), "0.25")

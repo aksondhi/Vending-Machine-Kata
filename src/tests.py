@@ -212,3 +212,15 @@ class CoinTests(unittest.TestCase):
         coinReturn = vendingMachine.getCoinReturn()
 
         self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), 0.4)
+
+    def testWhenCoinsAreInsertedAndCoinsAreReturnedCorrectCoinsAreReturned(self):
+        vendingMachine = VendingMachine()
+        vendingMachine.insert(2.5, 0.75)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
+        vendingMachine.returnCoins()
+        coinReturn = vendingMachine.getCoinReturn()
+
+        self.assertEqual(round(sum([aCoin.getValue() for aCoin in coinReturn]), 2), 0.4)
+        self.assertEqual(len(coinReturn), 4)

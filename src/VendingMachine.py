@@ -80,18 +80,22 @@ class VendingMachine:
 
         quarters = int(excess / Coins.QUARTER_VALUE)
         if quarters > 0:
-            excess = excess - (Coins.QUARTER_VALUE * quarters)
+            excess = round(excess - (Coins.QUARTER_VALUE * quarters), 2)
             for i in range(quarters):
                 self.coinReturn.append(Coin(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER))
 
         dimes = int(excess / Coins.DIME_VALUE)
         if dimes > 0:
-            excess = excess - (Coins.DIME_VALUE * dimes)
+            excess = round(excess - (Coins.DIME_VALUE * dimes), 2)
             for i in range(dimes):
                 self.coinReturn.append(Coin(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER))
 
         nickels = int(excess / Coins.NICKEL_VALUE)
-        if dimes > 0:
-            excess = excess - (Coins.NICKEL_VALUE * nickels)
+        if nickels > 0:
+            excess = round(excess - (Coins.NICKEL_VALUE * nickels), 2)
             for i in range(nickels):
                 self.coinReturn.append(Coin(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER))
+
+    def returnCoins(self):
+        self.coinReturn = self.coinReturn + self.inserted
+        self.inserted = []

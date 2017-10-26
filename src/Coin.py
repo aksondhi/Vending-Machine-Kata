@@ -45,6 +45,7 @@ class Coin:
             return Coins.DIME_VALUE
         elif self.__isQuarter():
             return Coins.QUARTER_VALUE
+        return 0
 
     def __isNickel(self):
         return self.weight == Coins.NICKEL_WEIGHT and self.diameter == Coins.NICKEL_DIAMETER

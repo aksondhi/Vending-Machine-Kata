@@ -86,3 +86,9 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(inserted[1].getDiameter(), 0.835)
         self.assertEqual(inserted[1].getValue(), 0.05)
         self.assertEqual(vendingMachine.getTotal(), 0.30)
+
+    def testWhenInvalidCoinsArePassedToVendingMachineDisplaysInsertCoin(self):
+        vendingMachine = VendingMachine()
+        successful = vendingMachine.insert(2.5, 0.75)
+
+        self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")

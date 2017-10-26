@@ -92,3 +92,13 @@ class CoinTests(unittest.TestCase):
         vendingMachine.insert(2.5, 0.75)
 
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+    def testWhenValidCoinsArePassedVendingMachineDisplaysCorrectAmount(self):
+        vendingMachine = VendingMachine()
+        vendingMachine.insert(5.0, 0.835)
+
+        self.assertEqual(vendingMachine.getDisplay(), "0.05")
+        vendingMachine.insert(2.268, 0.705)
+        self.assertEqual(vendingMachine.getDisplay(), "0.15")
+        vendingMachine.insert(5.670, 0.955)
+        self.assertEqual(vendingMachine.getDisplay(), "0.40")

@@ -29,4 +29,4 @@ class VendingMachine:
         return sum([coin.getValue() for coin in self.inserted])
 
     def getDisplay(self):
-        return "INSERT COIN"
+        return "{0:.2f}".format(self.getTotal()) if len(self.getInserted()) > 0 else "INSERT COIN"

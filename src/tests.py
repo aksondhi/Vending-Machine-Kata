@@ -2,6 +2,7 @@ __author__ = "Arun Sondhi"
 
 import unittest
 from Coin import Coin
+from Coin import Coins
 from VendingMachine import VendingMachine
 
 
@@ -14,24 +15,24 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(aCoin.getDiameter(), 0.75)
 
     def testWhenCoinIsPassValidWeightAndDiameterTheCoinIsValidAndHasProvidedWeightAndDiameter(self):
-        nickel = Coin(5.0, 0.835)  # A nickel
+        nickel = Coin(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)  # A nickel
 
         self.assertEqual(nickel.isValid(), True)
-        self.assertEqual(nickel.getWeight(), 5.0)
-        self.assertEqual(nickel.getDiameter(), 0.835)
-        self.assertEqual(nickel.getValue(), 0.05)
+        self.assertEqual(nickel.getWeight(), Coins.NICKEL_WEIGHT)
+        self.assertEqual(nickel.getDiameter(), Coins.NICKEL_DIAMETER)
+        self.assertEqual(nickel.getValue(), Coins.NICKEL_VALUE)
 
-        dime = Coin(2.268, 0.705)  # A dime
+        dime = Coin(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)  # A dime
         self.assertEqual(dime.isValid(), True)
-        self.assertEqual(dime.getWeight(), 2.268)
-        self.assertEqual(dime.getDiameter(), 0.705)
+        self.assertEqual(dime.getWeight(), Coins.DIME_WEIGHT)
+        self.assertEqual(dime.getDiameter(), Coins.DIME_DIAMETER)
         self.assertEqual(dime.getValue(), 0.1)
 
-        quarter = Coin(5.670, 0.955)  # A quarter
+        quarter = Coin(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)  # A quarter
         self.assertEqual(quarter.isValid(), True)
-        self.assertEqual(quarter.getWeight(), 5.670)
-        self.assertEqual(quarter.getDiameter(), 0.955)
-        self.assertEqual(quarter.getValue(), 0.25)
+        self.assertEqual(quarter.getWeight(), Coins.QUARTER_WEIGHT)
+        self.assertEqual(quarter.getDiameter(), Coins.QUARTER_DIAMETER)
+        self.assertEqual(quarter.getValue(), Coins.QUARTER_VALUE)
 
     def testWhenPenniesArePassedToVendingMachineTheyArePlacedInCoinReturn(self):
         vendingMachine = VendingMachine()
@@ -46,45 +47,45 @@ class CoinTests(unittest.TestCase):
 
     def testWhenValidWeightAndDiametersArePassedToVendingMachineTheyAreStoredAndAddedToTotalCorrectly(self):
         vendingMachine = VendingMachine()
-        successful = vendingMachine.insert(5.0, 0.835)
+        successful = vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
 
         self.assertTrue(successful)
         inserted = vendingMachine.getInserted()
         self.assertEqual(len(inserted), 1)
-        self.assertEqual(inserted[0].getWeight(), 5.0)
-        self.assertEqual(inserted[0].getDiameter(), 0.835)
-        self.assertEqual(inserted[0].getValue(), 0.05)
-        self.assertEqual(vendingMachine.getTotal(), 0.05)
+        self.assertEqual(inserted[0].getWeight(), Coins.NICKEL_WEIGHT)
+        self.assertEqual(inserted[0].getDiameter(), Coins.NICKEL_DIAMETER)
+        self.assertEqual(inserted[0].getValue(), Coins.NICKEL_VALUE)
+        self.assertEqual(vendingMachine.getTotal(), Coins.NICKEL_VALUE)
 
         vendingMachine = VendingMachine()
-        successful = vendingMachine.insert(2.268, 0.705)
+        successful = vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
 
         self.assertTrue(successful)
         inserted = vendingMachine.getInserted()
         self.assertEqual(len(inserted), 1)
-        self.assertEqual(inserted[0].getWeight(), 2.268)
-        self.assertEqual(inserted[0].getDiameter(), 0.705)
+        self.assertEqual(inserted[0].getWeight(), Coins.DIME_WEIGHT)
+        self.assertEqual(inserted[0].getDiameter(), Coins.DIME_DIAMETER)
         self.assertEqual(inserted[0].getValue(), 0.1)
         self.assertEqual(vendingMachine.getTotal(), 0.1)
 
         vendingMachine = VendingMachine()
-        successful = vendingMachine.insert(5.670, 0.955)
+        successful = vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
 
         self.assertTrue(successful)
         inserted = vendingMachine.getInserted()
         self.assertEqual(len(inserted), 1)
-        self.assertEqual(inserted[0].getWeight(), 5.670)
-        self.assertEqual(inserted[0].getDiameter(), 0.955)
-        self.assertEqual(inserted[0].getValue(), 0.25)
-        self.assertEqual(vendingMachine.getTotal(), 0.25)
+        self.assertEqual(inserted[0].getWeight(), Coins.QUARTER_WEIGHT)
+        self.assertEqual(inserted[0].getDiameter(), Coins.QUARTER_DIAMETER)
+        self.assertEqual(inserted[0].getValue(), Coins.QUARTER_VALUE)
+        self.assertEqual(vendingMachine.getTotal(), Coins.QUARTER_VALUE)
 
-        successful = vendingMachine.insert(5.0, 0.835)
+        successful = vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
 
         self.assertTrue(successful)
         self.assertEqual(len(inserted), 2)
-        self.assertEqual(inserted[1].getWeight(), 5.0)
-        self.assertEqual(inserted[1].getDiameter(), 0.835)
-        self.assertEqual(inserted[1].getValue(), 0.05)
+        self.assertEqual(inserted[1].getWeight(), Coins.NICKEL_WEIGHT)
+        self.assertEqual(inserted[1].getDiameter(), Coins.NICKEL_DIAMETER)
+        self.assertEqual(inserted[1].getValue(), Coins.NICKEL_VALUE)
         self.assertEqual(vendingMachine.getTotal(), 0.30)
 
     def testWhenInvalidCoinsArePassedToVendingMachineDisplaysInsertCoin(self):
@@ -95,12 +96,12 @@ class CoinTests(unittest.TestCase):
 
     def testWhenValidCoinsArePassedVendingMachineDisplaysCorrectAmount(self):
         vendingMachine = VendingMachine()
-        vendingMachine.insert(5.0, 0.835)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
 
         self.assertEqual(vendingMachine.getDisplay(), "0.05")
-        vendingMachine.insert(2.268, 0.705)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
         self.assertEqual(vendingMachine.getDisplay(), "0.15")
-        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
         self.assertEqual(vendingMachine.getDisplay(), "0.40")
 
     def testWhenAnyProductIsSelectedAndNoCoinsAreInsertedDisplayReturnsValueOfItemOnce(self):
@@ -123,20 +124,20 @@ class CoinTests(unittest.TestCase):
     def testWhenAnyProductIsSelectedAndInsufficientFundsAreAvailableDisplayReturnsValueOfItemOnceThenAvailableFunds(
             self):
         vendingMachine = VendingMachine()
-        vendingMachine.insert(5.0, 0.835)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
 
         vendingMachine.select(0)  # Selecting cola
 
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 1.00")
         self.assertEqual(vendingMachine.getDisplay(), "0.05")
 
-        vendingMachine.insert(2.268, 0.705)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
         vendingMachine.select(1)  # Selecting chips
 
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.50")
         self.assertEqual(vendingMachine.getDisplay(), "0.15")
 
-        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
         vendingMachine.select(2)  # Selecting candy
 
         self.assertEqual(vendingMachine.getDisplay(), "PRICE 0.65")
@@ -147,10 +148,10 @@ class CoinTests(unittest.TestCase):
 
         self.assertEqual(vendingMachine.getQuantity(0), 5)
 
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
         vendingMachine.select(0)
 
         self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
@@ -158,8 +159,8 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.getQuantity(0), 4)
         self.assertEqual(vendingMachine.getQuantity(1), 4)
 
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(5.670, 0.955)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
         vendingMachine.select(1)
 
         self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")
@@ -167,10 +168,10 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.getQuantity(1), 3)
         self.assertEqual(vendingMachine.getQuantity(2), 3)
 
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(5.670, 0.955)
-        vendingMachine.insert(2.268, 0.705)
-        vendingMachine.insert(5.0, 0.835)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
         vendingMachine.select(2)
 
         self.assertEqual(vendingMachine.getDisplay(), "THANK YOU")

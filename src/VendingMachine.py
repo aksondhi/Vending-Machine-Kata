@@ -88,6 +88,13 @@ class VendingMachine:
 
     def __makeChange(self, value):
         excess = self.getTotal() - value
+        for aCoin in self.inserted:
+            if aCoin.getValue() == Coins.QUARTER_VALUE:
+                self.quarters += 1
+            elif aCoin.getValue() == Coins.DIME_VALUE:
+                self.dimes += 1
+            elif aCoin.getValue() == Coins.NICKEL_VALUE:
+                self.nickels += 1
         self.inserted = []
 
         quarters = int(excess / Coins.QUARTER_VALUE)
@@ -95,18 +102,21 @@ class VendingMachine:
             excess = round(excess - (Coins.QUARTER_VALUE * quarters), 2)
             for i in range(quarters):
                 self.coinReturn.append(Coin(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER))
+                self.quarters -= 1
 
-        dimes = int(excess / Coins.DIME_VALUE)
+        dimes = int(round(excess / Coins.DIME_VALUE))
         if dimes > 0:
             excess = round(excess - (Coins.DIME_VALUE * dimes), 2)
             for i in range(dimes):
                 self.coinReturn.append(Coin(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER))
+                self.dimes -= 1
 
         nickels = int(excess / Coins.NICKEL_VALUE)
         if nickels > 0:
             excess = round(excess - (Coins.NICKEL_VALUE * nickels), 2)
             for i in range(nickels):
                 self.coinReturn.append(Coin(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER))
+                self.nickels -= 1
 
     def returnCoins(self):
         self.coinReturn = self.coinReturn + self.inserted

@@ -256,3 +256,29 @@ class CoinTests(unittest.TestCase):
         vendingMachine = VendingMachine(quarters=0, nickels=1, dimes=1)
 
         self.assertEqual(vendingMachine.getDisplay(), "INSERT COIN")
+
+    def testAfterAProductIsPurchasedCorrectCoinsAreInTheMachine(self):
+        vendingMachine = VendingMachine(candy=2, quarters=0, nickels=0, dimes=0)
+
+        self.assertEqual(vendingMachine.quarters, 0)
+        self.assertEqual(vendingMachine.dimes, 0)
+        self.assertEqual(vendingMachine.nickels, 0)
+
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.DIME_WEIGHT, Coins.DIME_DIAMETER)
+        vendingMachine.insert(Coins.NICKEL_WEIGHT, Coins.NICKEL_DIAMETER)
+        vendingMachine.select(2)
+
+        self.assertEqual(vendingMachine.quarters, 2)
+        self.assertEqual(vendingMachine.dimes, 1)
+        self.assertEqual(vendingMachine.nickels, 1)
+
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.insert(Coins.QUARTER_WEIGHT, Coins.QUARTER_DIAMETER)
+        vendingMachine.select(2)
+
+        self.assertEqual(vendingMachine.quarters, 5)
+        self.assertEqual(vendingMachine.dimes, 0)
+        self.assertEqual(vendingMachine.nickels, 1)

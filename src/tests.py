@@ -282,3 +282,7 @@ class CoinTests(unittest.TestCase):
         self.assertEqual(vendingMachine.quarters, 5)
         self.assertEqual(vendingMachine.dimes, 0)
         self.assertEqual(vendingMachine.nickels, 1)
+
+
+if __name__ == '__main__':
+    unittest.main()
